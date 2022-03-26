@@ -11,5 +11,6 @@ namespace Labb_4___API.Models
         public int ID { get; set; }
         [Required]
         public string Url { get; set; }
+        public int HobbyID { get; set; }
     }
 }

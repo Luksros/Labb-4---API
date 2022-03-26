@@ -14,7 +14,7 @@ namespace Labb_4___API
         public string HobbyName { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
         public List<WebLink> WebLinks { get; set; }
+        public int PersonID { get; set; }
     }
 }

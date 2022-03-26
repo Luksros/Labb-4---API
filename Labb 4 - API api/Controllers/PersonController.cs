@@ -1,5 +1,7 @@
 ﻿using Labb_4___API;
+using Labb_4___API.Data;
 using Labb_4___API.Services;
+using Labb_4___API_api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -8,13 +10,14 @@ namespace Labb_4___API_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonController : Controller
+    public class PersonController : ControllerBase
     {
         private IRepo<Person> persons;
-        PersonController(IRepo<Person> persons)
+        public PersonController(IRepo<Person> persons)
         {
             this.persons = persons;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -27,7 +30,7 @@ namespace Labb_4___API_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when retrieving all people from the database.");
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetSingleAsync(int id)
         {
             try
@@ -52,19 +55,19 @@ namespace Labb_4___API_api.Controllers
                 if (newPerson != null)
                 {
                     var persAdded = await persons.AddAsync(newPerson);
-                    return Created("Person was added to the database.",persAdded);
+                    return Created("Person was added to the database.", persAdded);
                 }
                 else
                 {
                     return BadRequest();
-                }        
+                }
             }
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when trying to add Person to database");
             }
         }
-        [HttpDelete("{id")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Person>> DeleteAsync(int id)
         {
             try

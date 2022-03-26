@@ -15,6 +15,6 @@ namespace Labb_4___API.Data
         }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Hobby> Hobbies { get; set; }
-        public DbSet<WebLink> WebLinks { get; set; }
+        public DbSet<WebLink> WebLink { get; set; }
     }
 }

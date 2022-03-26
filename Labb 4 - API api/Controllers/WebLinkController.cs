@@ -1,6 +1,7 @@
 ﻿using Labb_4___API;
 using Labb_4___API.Models;
 using Labb_4___API.Services;
+using Labb_4___API_api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,10 +10,10 @@ namespace Labb_4___API_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WebLinkController : Controller
+    public class WebLinkController : ControllerBase
     {
         private IRepo<WebLink> weblinks;
-        WebLinkController(IRepo<WebLink> weblinks)
+        public WebLinkController(IRepo<WebLink> weblinks)
         {
             this.weblinks = weblinks;
         }
@@ -28,7 +29,7 @@ namespace Labb_4___API_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when retrieving all weblinks from the database.");
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetSingleAsync(int id)
         {
             try
@@ -38,13 +39,14 @@ namespace Labb_4___API_api.Controllers
                 {
                     return Ok(linkSearch);
                 }
-                return NotFound("Hobby with this ID could not be found in the database.");
+                return NotFound("Weblink with this ID could not be found in the database.");
             }
             catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when retrieving weblink with specific ID from the database.");
             }
         }
+
         [HttpPost]
         public async Task<ActionResult<WebLink>> AddAsync(WebLink newWebLink)
         {
@@ -65,7 +67,7 @@ namespace Labb_4___API_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when trying to add weblink to database");
             }
         }
-        [HttpDelete("{id")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<WebLink>> DeleteAsync(int id)
         {
             try

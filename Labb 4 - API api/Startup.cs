@@ -1,6 +1,8 @@
 using Labb_4___API;
 using Labb_4___API.Data;
+using Labb_4___API.Models;
 using Labb_4___API.Services;
+using Labb_4___API_api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,8 @@ namespace Labb_4___API_api
 
             //Services AddScoped
             services.AddScoped<IRepo<Person>, PersonRepo>();
+            services.AddScoped<IRepo<Hobby>, HobbyRepo>();
+            services.AddScoped<IRepo<WebLink>, WebLinkRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

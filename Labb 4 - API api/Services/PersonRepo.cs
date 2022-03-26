@@ -1,4 +1,5 @@
 ﻿using Labb_4___API.Data;
+using Labb_4___API_api.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Labb_4___API.Services
 {
-    internal class PersonRepo : IRepo<Person>
+    public class PersonRepo : IRepo<Person>
     {
         private Labb4DbContext context;
 
@@ -42,7 +43,7 @@ namespace Labb_4___API.Services
 
         public async Task<Person> GetSingleAsync(int id)
         {
-            return await context.Persons.FirstOrDefaultAsync(p => p.ID == id);
+            return await context.Persons.Include(h => h.Hobbies).FirstOrDefaultAsync(p => p.ID == id);
         }
 
         public async Task<Person> UpdateAsync(Person entity)

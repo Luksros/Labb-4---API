@@ -3,6 +3,7 @@ using Labb_4___API.Data;
 using Labb_4___API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Labb_4___API_api.Services
@@ -41,7 +42,7 @@ namespace Labb_4___API_api.Services
 
         public async Task<Hobby> GetSingleAsync(int id)
         {
-            return await context.Hobbies.FirstOrDefaultAsync(h => h.ID == id);
+            return await context.Hobbies.Include(w => w.WebLinks).FirstOrDefaultAsync(h => h.ID == id);
         }
 
         public async Task<Hobby> UpdateAsync(Hobby entity)

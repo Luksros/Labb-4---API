@@ -1,8 +1,10 @@
-﻿using Labb_4___API.Data;
+﻿using Labb_4___API;
+using Labb_4___API.Data;
 using Labb_4___API.Models;
 using Labb_4___API.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Labb_4___API_api.Services
@@ -17,17 +19,17 @@ namespace Labb_4___API_api.Services
         }
         public async Task<WebLink> AddAsync(WebLink newEntity)
         {
-            var result = await context.WebLinks.AddAsync(newEntity);
+            var result = await context.WebLink.AddAsync(newEntity);
             await context.SaveChangesAsync();
             return result.Entity;
         }
 
         public async Task<WebLink> DeleteAsync(int id)
         {
-            var webLinkToDelete = await context.WebLinks.FirstOrDefaultAsync(h => h.ID == id);
+            var webLinkToDelete = await context.WebLink.FirstOrDefaultAsync(h => h.ID == id);
             if (webLinkToDelete != null)
             {
-                context.WebLinks.Remove(webLinkToDelete);
+                context.WebLink.Remove(webLinkToDelete);
                 await context.SaveChangesAsync();
                 return webLinkToDelete;
             }
@@ -36,17 +38,17 @@ namespace Labb_4___API_api.Services
 
         public async Task<IEnumerable<WebLink>> GetAllAsync()
         {
-            return await context.WebLinks.ToListAsync();
+            return await context.WebLink.ToListAsync();
         }
 
         public async Task<WebLink> GetSingleAsync(int id)
         {
-            return await context.WebLinks.FirstOrDefaultAsync(h => h.ID == id);
+            return await context.WebLink.FirstOrDefaultAsync(h => h.ID == id);
         }
 
         public async Task<WebLink> UpdateAsync(WebLink entity)
         {
-            var webLinkToUpdate = await context.WebLinks.FirstOrDefaultAsync(h => h.ID == entity.ID);
+            var webLinkToUpdate = await context.WebLink.FirstOrDefaultAsync(h => h.ID == entity.ID);
             if (webLinkToUpdate != null)
             {
                 webLinkToUpdate.Url = entity.Url;

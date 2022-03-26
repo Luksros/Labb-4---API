@@ -1,5 +1,6 @@
 ﻿using Labb_4___API;
 using Labb_4___API.Services;
+using Labb_4___API_api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -8,10 +9,10 @@ namespace Labb_4___API_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HobbyController : Controller
+    public class HobbyController : ControllerBase
     {
-        private IRepo<Hobby> hobbies;
-        HobbyController(IRepo<Hobby> hobbies)
+        private Services.IRepo<Hobby> hobbies;
+        public HobbyController(Services.IRepo<Hobby> hobbies)
         {
             this.hobbies = hobbies;
         }
@@ -27,7 +28,7 @@ namespace Labb_4___API_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when retrieving all hobbies from the database.");
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetSingleAsync(int id)
         {
             try
@@ -64,7 +65,7 @@ namespace Labb_4___API_api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error when trying to add hobby to database");
             }
         }
-        [HttpDelete("{id")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Hobby>> DeleteAsync(int id)
         {
             try
