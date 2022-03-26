@@ -1,6 +1,4 @@
 ﻿using Labb_4___API;
-using Labb_4___API.Data;
-using Labb_4___API.Services;
 using Labb_4___API_api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

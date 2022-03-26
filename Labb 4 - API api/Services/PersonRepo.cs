@@ -43,7 +43,7 @@ namespace Labb_4___API.Services
 
         public async Task<Person> GetSingleAsync(int id)
         {
-            return await context.Persons.Include(h => h.Hobbies).FirstOrDefaultAsync(p => p.ID == id);
+            return await context.Persons.Include(h => h.Hobbies).ThenInclude(w => w.WebLinks).FirstOrDefaultAsync(p => p.ID == id);
         }
 
         public async Task<Person> UpdateAsync(Person entity)
